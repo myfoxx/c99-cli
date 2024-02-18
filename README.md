@@ -39,3 +39,4 @@ Clona il repository e installa le dipendenze:
 git clone https://github.com/myfoxx/c99-cli.git
 cd c99-cli
 pip install -r requirements.txt
+chmod + c99-cli.py
