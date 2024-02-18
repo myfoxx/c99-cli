@@ -143,13 +143,7 @@ def main():
             print("\033[96m[[ --|         Myfox       |-- ]]\033[0m")  # Colorazione in magenta
             print("\033[95m[[ --|---------- + --------|-- ]]\033[0m")  # Colorazione in magenta
 
-            print("\n")
-
-        if not API_KEY or API_KEY == "XXXX":  # Sostituisci "XXXX" con il placeholder della tua chiave API
-            print("Errore: API_KEY non impostata. Imposta la tua chiave API e riprova.")
-            print("\n")
-
-            return 
+            print("\n") 
             
             choice = target_type_menu()
             if choice == "6":
