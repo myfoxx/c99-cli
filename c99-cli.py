@@ -10,6 +10,8 @@ import os
 API_KEY = "XXXX"  # Sostituisci con la tua chiave API
 
 # Funzione per stampare JSON in modo leggibile, con chiavi in grassetto e valore limitato in lunghezza
+
+
 def my_print_json(data, indent=0, max_length=50):
     for key, value in data.items():
         if isinstance(value, dict):
@@ -54,18 +56,18 @@ def execute_api_call(api_url, parameters):
     process_response(response)
     print("Chiamata API completata, tuu tuuu tuuuu")
 
+
 # IP TOOL 
 
 # Definizione delle funzioni API per ciascun tipo di target
 api_functions = {
     # Funzioni per il target IP
     "ip": {
-        "1": {"title": "IP Lookup", "url": "https://api.c99.nl/ip2domains", "param_key": "ip"},
-        "2": {"title": "Proxy Detector", "url": "https://api.c99.nl/proxydetector", "param_key": "ip"},
-        "3": {"title": "Port Scanner", "url": "https://api.c99.nl/portscanner", "param_key": "host"},
-        "4": {"title": "IP to Host", "url": "https://api.c99.nl/gethostname", "param_key": "host"},
-        "5": {"title": "IP 2 Domains", "url": "https://api.c99.nl/ip2domains", "param_key": "ip"},
-        "6": {"title": "IP Validator", "url": "https://api.c99.nl/ipvalidator", "param_key": "ip"}
+        "1": {"title": "Proxy Detector", "url": "https://api.c99.nl/proxydetector", "param_key": "ip"},
+        "2": {"title": "Port Scanner", "url": "https://api.c99.nl/portscanner", "param_key": "host"},
+        "3": {"title": "IP to Host", "url": "https://api.c99.nl/gethostname", "param_key": "host"},
+        "4": {"title": "IP 2 Domains", "url": "https://api.c99.nl/ip2domains", "param_key": "ip"},
+        "5": {"title": "IP Validator", "url": "https://api.c99.nl/ipvalidator", "param_key": "ip"}
     },
     # Funzioni per il target URL
     "url": {
@@ -143,7 +145,7 @@ def main():
             print("\033[96m[[ --|         Myfox       |-- ]]\033[0m")  # Colorazione in magenta
             print("\033[95m[[ --|---------- + --------|-- ]]\033[0m")  # Colorazione in magenta
 
-            print("\n") 
+            print("\n")
             
             choice = target_type_menu()
             if choice == "6":
