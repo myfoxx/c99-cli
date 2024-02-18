@@ -1,16 +1,31 @@
 # C99 API Command Line Tool
 
-Questo script è uno strumento da riga di comando che interagisce con varie API fornite da c99.nl. Permette agli utenti di eseguire diverse operazioni di rete e di analisi come il lookup di IP, la verifica di proxy, la geolocalizzazione IP, e altro ancora.
+Questo script è uno strumento da riga di comando che interagisce con varie API fornite da [C99.nl](https://api.c99.nl/). Permette agli utenti di eseguire diverse operazioni di rete e di analisi come il lookup di IP, la verifica di proxy, la geolocalizzazione IP, e altro ancora.
 
 ## Requisiti
 
 - Python 3.x
 - Librerie richieste: `requests`, `json` (e `tqdm` se implementato)
 
+## Installazione
+
+Clona il repository e installa le dipendenze:
+
+```bash
+git clone https://github.com/myfoxx/c99-cli.git
+cd c99-cli
+pip install -r requirements.txt
+chmod +x c99-cli.py
+```
+
 ## Uso
 
-Esegui lo script da linea di comando per accedere a una serie di funzionalità API.
+Imposta la tua chiave API C99.nl
 
+```
+API_KEY =  "VALUE"
+```
+Esegui lo script da linea di comando per accedere a una serie di funzionalità API.
 All'avvio, verrà visualizzato un menu principale con le seguenti opzioni:
 
 1. IP
@@ -31,12 +46,3 @@ In ogni momento, hai la possibilità di tornare al menu principale e scegliere u
 
 Ogni scelta porta a un set di funzionalità API specifiche per il tipo di target selezionato.
 
-## Installazione
-
-Clona il repository e installa le dipendenze:
-
-```bash
-git clone https://github.com/myfoxx/c99-cli.git
-cd c99-cli
-pip install -r requirements.txt
-chmod +x c99-cli.py
