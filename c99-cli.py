@@ -36,7 +36,7 @@ def process_response(response):
     try:
         data = response.json()
         if data.get("success", False):
-            print("\n\033[91mEere is the result:\033[0m\n")  # Rosso
+            print("\n\033[91mHere is the result:\033[0m\n")  # Rosso
             my_print_json(data)
         else:
             print("Unsuccessful answer")
