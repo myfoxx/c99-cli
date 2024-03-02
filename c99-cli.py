@@ -7,18 +7,17 @@ import time
 import os
 
 
-API_KEY = "XXXX"  # Sostituisci con la tua chiave API
+API_KEY = "XXXX"  # Replace with your API key
 
-# Funzione per stampare JSON in modo leggibile, con chiavi in grassetto e valore limitato in lunghezza
-
+# Function to print JSON legibly, with bold keys and limited value in length
 
 def my_print_json(data, indent=0, max_length=50):
     for key, value in data.items():
         if isinstance(value, dict):
-            print(" " * indent + "\033[1m" + f"{key}:\033[0m")  # Grassetto
+            print(" " * indent + "\033[1m" + f"{key}:\033[0m")  # Bold
             my_print_json(value, indent + 4, max_length)
         elif isinstance(value, list):
-            print(" " * indent + "\033[1m" + f"{key}:\033[0m")  # Grassetto
+            print(" " * indent + "\033[1m" + f"{key}:\033[0m")  # Bold
             for item in value:
                 if isinstance(item, dict):
                     my_print_json(item, indent + 4, max_length)
@@ -27,41 +26,41 @@ def my_print_json(data, indent=0, max_length=50):
         else:
             value_str = str(value)
             if len(value_str) > max_length:
-                print(" " * indent + "\033[1m" + f"{key} =\033[0m {value_str[:max_length]}...")  # Grassetto per la chiave
+                print(" " * indent + "\033[1m" + f"{key} =\033[0m {value_str[:max_length]}...")  # Bold for the key
             else:
-                print(" " * indent + "\033[1m" + f"{key} =\033[0m {value_str}")  # Grassetto per la chiave
+                print(" " * indent + "\033[1m" + f"{key} =\033[0m {value_str}")  # Bold for the key
     print("\n")
 
-# Elabora la risposta JSON e stampa in un formato leggibile
+# Process JSON response and print in a readable format
 def process_response(response):
     try:
         data = response.json()
         if data.get("success", False):
-            print("\n\033[91mEcco il risultato:\033[0m\n")  # Rosso
+            print("\n\033[91mEere is the result:\033[0m\n")  # Rosso
             my_print_json(data)
         else:
-            print("Risposta non riuscita")
+            print("Unsuccessful answer")
     except json.JSONDecodeError:
-        print("Errore nel processare la risposta JSON")
+        print("Error processing the JSON response")
 
-# Esegue chiamate API e processa la risposta
+# Run API calls and process response
 def execute_api_call(api_url, parameters):
     clear_screen()
     print("\n")
-    print("\033[1mDrin Driin, wake up NEO, chiamata API...\033[0m")
+    print("\033[1mDrin Driin, wake up NEO, API call...\033[0m")
     response = requests.get(api_url, params=parameters)
-    # Simula un'attività con una barra di progresso
-    for _ in tqdm(range(100), desc="Elaborazione..."):
+    # Simulate a task with a progress bar
+    for _ in tqdm(range(100), desc="Processing..."):
         time.sleep(0.02)  
     process_response(response)
-    print("Chiamata API completata, tuu tuuu tuuuu")
+    print("API call completed, tuu tuuu tuuuu")
 
 
 # IP TOOL 
 
-# Definizione delle funzioni API per ciascun tipo di target
+# Definition of API functions for each target type
 api_functions = {
-    # Funzioni per il target IP
+    # Functions for the IP target
     "ip": {
         "1": {"title": "Proxy Detector", "url": "https://api.c99.nl/proxydetector", "param_key": "ip"},
         "2": {"title": "Port Scanner", "url": "https://api.c99.nl/portscanner", "param_key": "host"},
@@ -69,7 +68,7 @@ api_functions = {
         "4": {"title": "IP 2 Domains", "url": "https://api.c99.nl/ip2domains", "param_key": "ip"},
         "5": {"title": "IP Validator", "url": "https://api.c99.nl/ipvalidator", "param_key": "ip"}
     },
-    # Funzioni per il target URL
+    # Functions for the target URL
     "url": {
         "1": {"title": "Subdomain Finder", "url": "https://api.c99.nl/subdomainfinder", "param_key": "domain"},
         "2": {"title": "(WAF) Detector", "url": "https://api.c99.nl/firewalldetector", "param_key": "url"},
@@ -79,71 +78,71 @@ api_functions = {
         "6": {"title": "Whois Checker", "url": "https://api.c99.nl/whois", "param_key": "domain"},
         "7": {"title": "Site/URL Reputation Checker", "url": "https://api.c99.nl/reputationchecker", "param_key": "url"}
     },
-    # Funzioni per il target host
+    # Functions for the target host
     "host": {
         "1": {"title": "Get Website Headers", "url": "https://api.c99.nl/getheaders", "param_key": "host"},
         "2": {"title": "Proxy Check", "url": "https://api.c99.nl/proxycheck", "param_key": "host"},
         "3": {"title": "GeoIP Lookup", "url": "https://api.c99.nl/geoip", "param_key": "host"},
         "4": {"title": "Port Scanner", "url": "https://api.c99.nl/portscanner", "param_key": "host"}
     },
-    # Funzioni per il target EMAIL
+    # Functions for the EMAIL target
     "email": {
         "1": {"title": "Email Validator", "url": "https://api.c99.nl/emailvalidator", "param_key": "email"},
         "2": {"title": "Disposable Mail Check", "url": "https://api.c99.nl/disposablemailchecker", "param_key": "email"}
     },
-    # Funzioni per il target VARIE
+    # Functions for the target VARIOUS
     "varie": {
         "1": {"title": "TO DO ... work in progress", "url": "https://api.c99.nl/getheaders", "param_key": "host"}
     }
 }
 
-# Genera e stampa il menu delle opzioni in base al tipo di target
+# Generate and print options menu based on target type
 def generate_menu(target_type, target):
     print("\n")
     print("\033[1m[[ MENU \033[96m" +target_type.upper()+"\033[0m\033[1m  ]]\033[0m")
     print("\033[1m[[ TARGET: \033[96m" +target.upper()+"\033[0m\033[1m  ]]\033[0m")
     for key, value in api_functions[target_type].items():
         print(f"{key}. {value['title']}")
-    print("98. Torna al menu principalet")
-    print("99. Esci")
+    print("98. Back to the main menu")
+    print("99. Exit")
 
-# Ottiene l'input dell'utente in base al tipo di target
+# Get user input based on target type
 def get_input(type):
-    return input(f"Inserisci {type}: ")
+    return input(f"Insert {type}: ")
 
-# Mostra un menu per scegliere il tipo di target, con scelte numeriche
+# Show a menu to choose the type of target, with numeric choices
 def target_type_menu():
     menu_items = [
         "1. IP", "2. URL",
         "3. Host", "4. Email",
-        "5. Varie", "6. Help"
+        "5. Various", "6. Help"
     ]
     for i in range(0, len(menu_items), 2):
         print(f"{menu_items[i]:<15}{menu_items[i + 1] if i + 1 < len(menu_items) else ''}")
-    choice = input("Scegli il tipo di target: ")
+    choice = input("Select the target type: ")
     return choice
 
 # Stampa la guida all'uso dello strumento
 def print_help():
-    print("Guida all'uso dello strumento...")
+    print("Guide to using the tool...")
 
 def clear_screen():
-    # 'cls' per Windows, 'clear' per altri sistemi operativi
+    # 'cls' for Windows, 'clear' for other operating systems
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-# Vabbé dai questa non te la devo spiegare :-) 
+# Well, I don’t have to explain this to you :-)
 def main():
     target = None
     target_type = None
 
     while True:
         if not target_type:
-            print("\033[95m[[ --|---------- + --------|-- ]]\033[0m")  # Colorazione in magenta
-            print("\033[96m[[ --| C99.nl Command line |-- ]]\033[0m")  # Colorazione in ciano
-            print("\033[95m[[ --|           +         |-- ]]\033[0m")  # Colorazione in magenta
-            print("\033[96m[[ --|         Myfox       |-- ]]\033[0m")  # Colorazione in magenta
-            print("\033[95m[[ --|---------- + --------|-- ]]\033[0m")  # Colorazione in magenta
+            print("\033[95m[[ --|---------- + --------|-- ]]\033[0m")  
+            print("\033[96m[[ --| C99.nl Command line |-- ]]\033[0m")  
+            print("\033[95m[[ --|           +         |-- ]]\033[0m") 
+            print("\033[96m[[ --|         Myfox       |-- ]]\033[0m") 
+            print("\033[95m[[ --|---------- + --------|-- ]]\033[0m") 
 
             print("\n")
             
@@ -152,11 +151,11 @@ def main():
                 print_help()
                 continue
             elif choice in ["1", "2", "3", "4", "5"]:
-                target_types = {"1": "ip", "2": "url", "3": "host", "4": "email", "5": "varie"}
+                target_types = {"1": "ip", "2": "url", "3": "host", "4": "email", "5": "various"}
                 target_type = target_types[choice]
                 target = get_input(target_type)
             else:
-                print("Selezione non valida. Riprova.")
+                print("Invalid selection. Please try again.")
 
         generate_menu(target_type, target)
         choice = input("Scegli un'opzione: ")
@@ -168,12 +167,12 @@ def main():
             target = None
             continue
         elif choice == "99":
-            print("Uscita dal programma.")
+            print("Exit.")
             break
         else:
-            print("Opzione non valida. Riprova.")
+            print("Try again, the option is not valid.")
 
 
-# pare che le due linee seguenti servano a qualcosa di importante ! 
+# From what I can tell, the following two lines serve a vital purpose!
 if __name__ == "__main__":
     main()
